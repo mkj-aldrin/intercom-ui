@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  display: grid;
+}
+
+com-project,
+com-chain,
+com-module {
+  padding: 4px;
+}
+index-list {
+  display: flex;
+  gap: 4px;
+}
