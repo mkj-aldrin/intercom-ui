@@ -11,6 +11,12 @@ body {
 
 body {
   font-family: sans-serif;
+  font-weight: 100;
+}
+
+body,
+com-project,
+com-chain {
   display: grid;
 }
 
@@ -18,9 +24,30 @@ com-project,
 com-chain,
 com-module {
   padding: 4px;
+
+  border-radius: 2px;
+  border: 1px solid #000;
 }
 
-index-list {
+com-chain-list,
+com-module-list {
   display: flex;
   gap: 4px;
+}
+
+com-module-list {
+  flex-direction: column;
+}
+
+/* g r a b b i n g*/
+com-project.grabbing,
+com-project.grabbing com-module {
+  cursor: grabbing;
+}
+com-module {
+  user-select: none;
+  cursor: grab;
+}
+.grabbed {
+  color: orange;
 }
