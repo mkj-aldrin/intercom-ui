@@ -19,6 +19,7 @@ com-chain,
 com-module {
   padding: 4px;
 }
+
 index-list {
   display: flex;
   gap: 4px;
