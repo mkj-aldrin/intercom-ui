@@ -10,7 +10,7 @@ export class COMModule extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent("drag:down", {
           bubbles: true,
-          detail: { module: this },
+          detail: { module: this, clientX: e.clientX, clientY: e.clientY },
         })
       );
     };
@@ -19,7 +19,7 @@ export class COMModule extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent("drag:up", {
           bubbles: true,
-          detail: { module: this },
+          detail: { module: this, clientX: e.clientX, clientY: e.clientY },
         })
       );
     };
@@ -28,7 +28,7 @@ export class COMModule extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent("drag:enter", {
           bubbles: true,
-          detail: { module: this },
+          detail: { module: this, clientX: e.clientX, clientY: e.clientY },
         })
       );
     };
