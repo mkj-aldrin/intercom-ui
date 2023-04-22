@@ -3,6 +3,11 @@
   margin: 0;
   padding: 0;
 }
+/* v a r s */
+:root {
+  --space-0: 2px;
+  --space-1: 6px;
+}
 
 html,
 body {
@@ -12,9 +17,22 @@ body {
 body {
   font-family: sans-serif;
   font-weight: 100;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 }
 
+#app {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+}
+
+/* com-project {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+} */
+
 body,
+#app,
 com-project,
 com-chain {
   display: grid;
@@ -23,16 +41,16 @@ com-chain {
 com-project,
 com-chain,
 com-module {
-  padding: 4px;
+  padding: var(--space-1);
 
   border-radius: 2px;
-  border: 1px solid #000;
+  border: 1px solid currentColor;
 }
 
 com-chain-list,
 com-module-list {
   display: flex;
-  gap: 4px;
+  gap: var(--space-1);
 }
 
 com-module-list {
@@ -50,4 +68,5 @@ com-module {
 }
 .grabbed {
   color: orange;
+  pointer-events: none;
 }

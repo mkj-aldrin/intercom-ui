@@ -1,4 +1,4 @@
-import { ani } from "../animations/flip";
+import { ani, move } from "../animations/flip";
 import { COMChain } from "./chain";
 import { IndexList } from "./index-list";
 import { COMModule } from "./module";
@@ -10,11 +10,28 @@ export class COMProject extends HTMLElement {
     super();
 
     this.addEventListener("drag:down", (e) => {
-      this.dragEl = e.detail.module;
+      const module = e.detail.module;
+      this.dragEl = module;
       this.dragChain = e.detail.chain;
 
       this.classList.add("grabbing");
       this.dragEl.classList.add("grabbed");
+
+      const box = module.getBoundingClientRect();
+      module.data.animation = {
+        boxCenter: {
+          x: box.left + box.width / 2,
+          y: box.top + box.height / 2,
+        },
+      };
+
+      const { clientX, clientY } = e.detail;
+      move([clientX, clientY], module);
+
+      this.onpointermove = (e) => {
+        const { clientX, clientY } = e;
+        move([clientX, clientY], module);
+      };
     });
 
     this.addEventListener("drag:up", (e) => {});
@@ -50,14 +67,23 @@ export class COMProject extends HTMLElement {
       dragBoxElements.forEach(ani);
       enterBoxElements.forEach(ani);
 
+      const box = enterEl.getBoundingClientRect();
+      this.dragEl.data.animation.boxCenter = {
+        x: box.left + box.width / 2,
+        y: box.top + box.height / 2,
+      };
+
       this.dragChain = chain;
     });
 
     this.onpointerup = (e) => {
+      if (!this.dragEl) return;
+      move([0, 0], this.dragEl, true);
       this.classList.remove("grabbing");
       this.dragEl?.classList.remove("grabbed");
 
       this.dragEl = null;
+      this.onpointermove = null;
     };
   }
 

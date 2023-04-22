@@ -11,7 +11,8 @@ customElements.define("com-module", COMModule);
 const project = document.createElement("com-project");
 const chainList = document.createElement("com-chain-list");
 
-document.body.appendChild(project);
+document.getElementById("app").appendChild(project);
+// document.body.appendChild(project);
 project.appendChild(chainList);
 
 const init_arr = [
