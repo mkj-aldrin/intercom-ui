@@ -31,3 +31,33 @@ export const ani = (obj: { el: COMModule; box: DOMRect }) => {
     opt
   );
 };
+
+export function move([clientX, clientY], module: COMModule, reset = false) {
+  const opt: KeyframeAnimationOptions = {
+    easing: easingMap.quintOut,
+    duration: 500,
+    fill: "both",
+  };
+
+  const v = {
+    x: Math.max(
+      Math.min((clientX - module.data.animation.boxCenter.x) * 0.0625, 5),
+      -5
+    ),
+    y: Math.max(
+      Math.min((clientY - module.data.animation.boxCenter.y) * 0.0625, 5),
+      -5
+    ),
+  };
+
+  module.animate(
+    [
+      {
+        transform: reset
+          ? "translate(0px,0px)"
+          : `translate(${v.x}px,${v.y}px)`,
+      },
+    ],
+    opt
+  );
+}
