@@ -5,10 +5,10 @@ import { COMChainList, COMProject } from "../custom-element/project";
 export declare namespace COM {
   type DragEvent = CustomEvent<{
     chain?: COMChain;
-    module: COMModule;
     clientX: number;
     clientY: number;
   }> & {
+    target: COMModule;
     type: "drag:down" | "drag:up" | "drag:enter";
   };
 }

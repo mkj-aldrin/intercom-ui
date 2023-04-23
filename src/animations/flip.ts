@@ -40,14 +40,8 @@ export function move([clientX, clientY], module: COMModule, reset = false) {
   };
 
   const v = {
-    x: Math.max(
-      Math.min((clientX - module.data.animation.boxCenter.x) * 0.0625, 5),
-      -5
-    ),
-    y: Math.max(
-      Math.min((clientY - module.data.animation.boxCenter.y) * 0.0625, 5),
-      -5
-    ),
+    x: Math.max(Math.min((clientX - module.dragPossition.x) * 0.0625, 5), -5),
+    y: Math.max(Math.min((clientY - module.dragPossition.y) * 0.0625, 5), -5),
   };
 
   module.animate(
