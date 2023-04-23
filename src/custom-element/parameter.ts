@@ -5,6 +5,7 @@ function clamp(x: number, min = 0, max = 1) {
 export class COMParameter extends HTMLElement {
   name: string;
   value: number;
+  type: "float" | "int" | "none"
   constructor() {
     super();
 
@@ -13,29 +14,44 @@ export class COMParameter extends HTMLElement {
     };
 
     this.oninput = (e) => {
-      const value = +e.target.value;
-      const max = +e.target.max;
-      if (value > max) {
-        e.target.value = max.toFixed(2);
-      }
+      // let value = 0
+      // switch (this.type) {
+      //   case 'float':
+      //     value = clamp(+e.target.value).toFixed(2)
+      //     break
+      //   case 'int':
+      //     value = parseInt(e.target.value)
+      //     break
+      // }
+      // e.target.value = value
+
     };
     this.onchange = (e) => {
-      const value = +e.target.value;
-      e.target.value = value.toFixed(2);
+      let value = 0
+      switch (this.type) {
+        case 'float':
+          value = clamp(+e.target.value).toFixed(2);
+          break
+        case 'int':
+          value = parseInt(e.target.value)
+          break
+      }
+      e.target.value = value
     };
 
     this.onkeydown = (e) => {
-      const value = +e.target?.value;
+      let value = +e.target?.value;
       const meta = e.metaKey;
-      const step = meta ? 0.1 : 0.01;
+      const step = this.type == 'int' ? meta ? 10 : 1 : meta ? 0.1 : 0.01;
       if (e.key == "ArrowUp") {
-        const v = clamp(value + step);
-        e.target.value = v.toFixed(2);
+        const a = this.type == 'int' ? value + step : clamp(value + step)
+        value = a
       }
       if (e.key == "ArrowDown") {
-        const v = clamp(value - step);
-        e.target.value = v.toFixed(2);
+        const a = this.type == 'int' ? value - step : clamp(value - step)
+        value = a
       }
+      e.target.value = value
     };
   }
 }
@@ -45,15 +61,20 @@ export class COMParameterList extends IndexList {
     super();
   }
 
-  appendParameter({ name, value }: { name: string; value: number }) {
+  appendParameter(
+    { name, value }: { name: string; value: number },
+    type: "float" | "int" | "none"
+  ) {
     const newParameter = document.createElement("com-parameter");
     newParameter.name = name;
-    newParameter.value = value;
+
+    const _value = type == 'float' value.toFixed(2) : value
+    newParameter.type = type
 
     newParameter.innerHTML = `
     <!-- <label> -->
-      <span>${name}</span>
-      <input type="text" value=${value.toFixed(2)} max="1" />
+      <span>${name}</span>=
+      <input type="text" value=${value} max="1" />
     <!-- </label> -->
     `;
 

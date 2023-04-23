@@ -5,25 +5,32 @@ import { COMModule } from "./module";
 const ModuleTemplateMap = {
   PTH: {
     signature: {
+      type: "none",
       parameters: [],
     },
   },
   LFO: {
     signature: {
+      type: "float",
       parameters: [
-        { name: "rate", value: 0.10 },
+        { name: "rate", value: 0.1 },
         { name: "amp", value: 0.5 },
       ],
     },
   },
   BCH: {
     signature: {
-      parameters: [],
+      type: "int",
+      parameters: [
+        { name: "chain", value: 0 },
+        { name: "module", value: 0 },
+      ],
     },
   },
   PRO: {
     signature: {
-      parameters: [],
+      type: "float",
+      parameters: [{ name: "chance", value: 0.5 }],
     },
   },
 };
@@ -52,8 +59,10 @@ export class COMModuleList extends IndexList {
       document.createElement("com-parameter-list")
     );
 
-    ModuleTemplateMap[type].signature.parameters.forEach((parameter) => {
-      parameterList.appendParameter(parameter);
+    const signature = ModuleTemplateMap[type].signature;
+
+    signature.parameters.forEach((parameter) => {
+      parameterList.appendParameter(parameter, signature.type);
     });
     if (referenceModule) {
       return referenceModule.insertAdjacentElement("beforebegin", newModule);
