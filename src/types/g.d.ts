@@ -1,5 +1,6 @@
 import { COMChain, COMModuleList } from "../custom-element/chain";
 import { COMModule } from "../custom-element/module";
+import { COMParameter, COMParameterList } from "../custom-element/parameter";
 import { COMChainList, COMProject } from "../custom-element/project";
 
 export declare namespace COM {
@@ -25,6 +26,8 @@ declare global {
     "com-chain": COMChain;
     "com-module-list": COMModuleList;
     "com-module": COMModule;
+    "com-parameter-list": COMParameterList;
+    "com-parameter": COMParameter;
   }
 }
 export {};

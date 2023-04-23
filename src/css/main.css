@@ -3,6 +3,14 @@
   margin: 0;
   padding: 0;
 }
+input {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  border-style: solid;
+  border-width: 1px;
+  color: currentColor;
+}
 /* v a r s */
 :root {
   --space-0: 2px;
@@ -26,11 +34,6 @@ body {
   grid-row: 1/-1;
 }
 
-/* com-project {
-  grid-column: 1/-1;
-  grid-row: 1/-1;
-} */
-
 body,
 #app,
 com-project,
@@ -41,19 +44,52 @@ com-chain {
 com-project,
 com-chain,
 com-module {
-  padding: var(--space-1);
+  padding: var(--space-0);
+}
 
+com-project,
+com-chain,
+com-module,
+com-parameter input {
   border-radius: 2px;
   border: 1px solid currentColor;
 }
 
 com-chain-list,
-com-module-list {
+com-module-list,
+com-parameter-list,
+com-parameter {
   display: flex;
-  gap: var(--space-1);
+  gap: var(--space-0);
 }
 
 com-module-list {
+  flex-direction: column;
+}
+
+com-module {
+  box-shadow: 0 0 8px 0 hsl(0 0% 0% / 0.1);
+}
+
+com-parameter {
+  font-size: 12px;
+}
+
+com-parameter label {
+  /* display: flex; */
+}
+
+com-parameter input {
+  box-sizing: content-box;
+  margin-inline-start: auto;
+  text-align: center;
+  width: 6ch;
+  padding-inline: 0.1ch;
+  /* padding: 0.1em; */
+}
+
+com-parameter-list {
+  display: flex;
   flex-direction: column;
 }
 

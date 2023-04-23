@@ -15,4 +15,9 @@ export class COMChainList extends IndexList {
   constructor() {
     super();
   }
+
+  addChain() {
+    const newChain = document.createElement("com-chain");
+    return this.appendChild(newChain);
+  }
 }

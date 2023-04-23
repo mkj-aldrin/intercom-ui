@@ -11,6 +11,7 @@ export class Draggable extends HTMLElement {
     this.dragPossition = { x: 0, y: 0 };
 
     this.onpointerdown = (e) => {
+      if (e.target.tagName == "INPUT") return;
       this.dispatchEvent(
         new CustomEvent("drag:down", {
           bubbles: true,
