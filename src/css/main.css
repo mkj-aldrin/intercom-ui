@@ -3,10 +3,32 @@
   margin: 0;
   padding: 0;
 }
+input {
+  background: transparent;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  border-style: solid;
+  border-width: 1px;
+  border-color: currentColor;
+  color: currentColor;
+}
 /* v a r s */
 :root {
   --space-0: 2px;
-  --space-1: 6px;
+  --space-1: 4px;
+}
+
+:root {
+  --col-base-hue: 30;
+  --col-black: var(--col-base-hue) 0% 15%;
+  --col-white: var(--col-base-hue) 10% 98.5%;
+  --col-primary: 30 100% 50%;
+  --col-secondary: 210 80% 60%;
+}
+:root {
+  --shadow: 0 0 8px 0px hsl(var(--col-black, 0 0% 0%) / var(--s-opacity, 0.075));
+  --border: 1px hsl(var(--col-black) / 0.05) solid;
 }
 
 html,
@@ -15,8 +37,10 @@ body {
 }
 
 body {
-  font-family: sans-serif;
-  font-weight: 100;
+  color: hsl(var(--col-black));
+  /* font-family: system-ui; */
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 400;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
@@ -26,11 +50,6 @@ body {
   grid-row: 1/-1;
 }
 
-/* com-project {
-  grid-column: 1/-1;
-  grid-row: 1/-1;
-} */
-
 body,
 #app,
 com-project,
@@ -39,21 +58,64 @@ com-chain {
 }
 
 com-project,
+com-chain {
+  padding: var(--space-0);
+}
+
+com-project,
 com-chain,
 com-module {
-  padding: var(--space-1);
-
   border-radius: 2px;
-  border: 1px solid currentColor;
+  border: 1px solid hsl(var(--col-black) / 0.2);
 }
 
 com-chain-list,
-com-module-list {
+com-module-list,
+com-parameter-list,
+com-parameter {
   display: flex;
-  gap: var(--space-1);
+  gap: var(--space-0);
+}
+com-module-list {
+  flex-direction: column;
+
+  --col: var(--col-black) / 0.05;
+  --w: 5%;
+  --pattern-stripes: 135deg, hsl(var(--col)) 0% var(--w),
+    transparent var(--w) calc(50% - var(--w)),
+    hsl(var(--col)) calc(50% - var(--w)) calc(50% + var(--w)),
+    transparent calc(50% + var(--w)) calc(100% - var(--w)),
+    hsl(var(--col)) calc(100% - var(--w));
+
+  background-repeat: repeat;
+  background-size: 8px 8px;
+  background-image: linear-gradient(var(--pattern-stripes));
 }
 
-com-module-list {
+com-module {
+  padding: var(--space-1);
+  background: hsl(var(--col-white) / 0.7);
+  box-shadow: 0 0 8px 0 hsl(0 0% 0% / 0.1);
+}
+
+com-parameter {
+  font-size: 12px;
+}
+
+com-parameter input {
+  box-sizing: content-box;
+  margin-inline-start: auto;
+  text-align: center;
+  width: 4ch;
+  padding-inline: 0.1ch;
+  border-style: none;
+  border-bottom-style: solid;
+  /* padding: 0.1em; */
+}
+
+com-parameter-list {
+  font-weight: 300;
+  display: flex;
   flex-direction: column;
 }
 
@@ -62,11 +124,14 @@ com-project.grabbing,
 com-project.grabbing com-module {
   cursor: grabbing;
 }
+com-project.grabbing com-module-list {
+  --col: var(--col-primary) / 0.5;
+}
 com-module {
   user-select: none;
   cursor: grab;
 }
 .grabbed {
-  color: orange;
+  color: hsl(var(--col-primary));
   pointer-events: none;
 }
